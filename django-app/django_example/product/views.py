@@ -45,3 +45,22 @@ def product_view(request):
     context = {'product': product}
     
     return render(request, 'product/product.html', context)
+
+
+
+
+def product_list(request):
+    products = Product.objects.all()
+    context = {'products': products}
+    print(products)
+    return render(request, 'product/list.html', context)
+
+
+def product_find(request):
+    products = Product.objects.all()
+    context = {'products': products}
+    print(products)
+    return render(request, 'product/list.html', context)
+
+
+
