@@ -31,11 +31,6 @@ def check_customer(customer_id):
             
         except mariadb.Error as e:
              print(f"Error adding entry to database: {e}")
-          
-        finally:
-            if conn:
-                conn.close()
-                print("The mariadb connection is closed")
 
 
 
@@ -48,11 +43,6 @@ def create_customer(customer_id,customer_name):
             
             except mariadb.Error as e:
                 print(f"Error adding entry to database: {e}")
-            finally:
-               if conn:
-                    conn.close()
-                    print("The mariadb connection is closed")
-
 
 
 def store_product(customer_id,	product_name,	product_price, product_description):
@@ -61,60 +51,57 @@ def store_product(customer_id,	product_name,	product_price, product_description)
                  cursor.execute("INSERT INTO products (customer_id, name, price, description) VALUES (?,?,?,?)",
                                 (customer_id,	product_name,	product_price, product_description))
                  
-                 return "Product Data inserted Successfully"
+                 print("Product Data inserted Successfully")
             
             except mariadb.Error as e:
                 print(f"Error adding entry to database: {e}")
-                
-            finally:
-               if conn:
-                    conn.close()
-                    print("The mariadb connection is closed")
+                   
         else:
            return "customer_id does not exist in database"
 
 
 
 # inserting  one by one
-# for i, item in enumerate(json_obj): 
-#             customer_id = validate_data(item.get("customer_id", None))
-#             customer_name = validate_data(item.get("customer_name", None))
-#             product_name = validate_data(item.get("product_name", None))
-#             product_price = validate_data(item.get("product_price", None))
-#             product_description = validate_data(item.get("product_description", None))
+for i, item in enumerate(json_obj): 
+            customer_id = validate_data(item.get("customer_id", None))
+            customer_name = validate_data(item.get("customer_name", None))
+            product_name = validate_data(item.get("product_name", None))
+            product_price = validate_data(item.get("product_price", None))
+            product_description = validate_data(item.get("product_description", None))
 
-#             if check_customer(customer_id) == 0:
-#                 customer_id = create_customer(customer_id,customer_name)
-#                 result =  store_product(customer_id,	product_name,	product_price, product_description)
-#                 print(result)
-#             else:
-#                 result =  store_product(customer_id,	product_name,	product_price, product_description)
-#                 print(result)
+            if check_customer(customer_id) == 0:
+                customer_id = create_customer(customer_id,customer_name)
+                store_product(customer_id,	product_name,	product_price, product_description)
+            else:
+                store_product(customer_id,	product_name,	product_price, product_description)
+                
+conn.commit()
+conn.close()
 
 
 
 
 # inserting  multiple columns          
-def store_multiple_product(product_data):
-            try:
-                 cursor.executemany("INSERT INTO products (customer_id, name, price, description) VALUES (?,?,?,?)",
-                                (product_data,))
+# def store_multiple_product(product_data):
+#             try:
+#                  cursor.executemany("INSERT INTO products (customer_id, name, price, description) VALUES (?,?,?,?)",
+#                                 (product_data))
                  
-                 return "Product Data inserted Successfully"
+#                  print("Product Data inserted Successfully")
             
-            except mariadb.Error as e:
-                print(f"Error adding entry to database: {e}")
+#             except mariadb.Error as e:
+#                 print(f"Error adding entry to database: {e}")
                 
-            finally:
-               if conn:
-                    conn.close()
-                    print("The mariadb connection is closed")
+#             finally:
+#                if conn:
+#                     conn.commit()
+#                     conn.close()
+#                     print("The mariadb connection is closed")
 
 
 
-product_data = []
-for i, item in enumerate(json_obj): 
-         del item["customer_name"]
-         product_data.append(tuple(item.values()))
-print(list(product_data))
-store_multiple_product(list(product_data)) 
+# product_data = []
+# for i, item in enumerate(json_obj): 
+#          del item["customer_name"]
+#          product_data.append(tuple(item.values()))
+# store_multiple_product(list(product_data)) 

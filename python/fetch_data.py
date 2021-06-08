@@ -16,8 +16,7 @@ def fetch_data(customer_id):
                     print("Product Price: ", row[3])
                     print("Product Description: ", row[4])
                     print("\n")
-
-                 cursor.close() 
+                    
             except mariadb.Error as e:
                  print(f"Error adding entry to database: {e}")
             finally:
@@ -27,4 +26,4 @@ def fetch_data(customer_id):
           
           
           
-fetch_data(100)
+fetch_data(1002)
