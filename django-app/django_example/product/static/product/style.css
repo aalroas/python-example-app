@@ -116,20 +116,7 @@ body{
   background: #fff;
 }
 
-.content .input-box .btn{
-  color: #fff;
-  background: #24c253;
-  padding-left: 0;
-  font-size: 18px;
-  font-weight: 500;
-  cursor: pointer;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
-  width: 100%;
-  border: 2px solid transparent;
-  border-radius: 5px;
-  padding: 5px;
-}
+ 
 @media (max-width:1000px) {
   .content .image-box{
     max-width: 70%;
@@ -155,4 +142,48 @@ body{
 a, u {
     text-decoration: none;
     display: initial;
+}
+
+.row{
+  max-width: 1050px;
+  width: 600px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.table{
+    margin: 5px;
+}
+
+
+.search-box{
+  justify-content: space-between;
+  position: relative;
+  text-align: center;
+}
+.search-box input{
+    position: static;
+    border-radius: 6px;
+    font-size: 16px;
+    outline: none;
+    display: inline-block;
+    padding-left: 16px;
+    background: #f7f7f7;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.btn{
+  color: #fff;
+  background: #24c253;
+  padding-left: 0;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  padding: 1px;
 }

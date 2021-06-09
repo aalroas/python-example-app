@@ -7,47 +7,50 @@
 />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
 <script src="{% static 'product/script.js' %}"></script>
 
+ 
 <div class="container">
-   <div class="content">
-      <form id="new_product_form" method="post">
-         {% csrf_token %}
-         <div style="text-align: -webkit-center;" class="topic">    
+ <div class="content">
+ 
+      <div style="text-align: -webkit-center;" class="topic">    
          <div class="input-box">
              <a class="btn" href="/"><span>Create New Product</span></a>
              <a class="btn" href="/list"><span>List All Product</span></a>
              <a class="btn" href="/find"><span>Find by Customer ID</span></a>
          </div>
          </div>
-
-         <div class="topic">  Create New Product   </div>
  
-         <span class="alert" id="alert_span">Product Stored successfully</span>
-
-         <div class="input-box">
-            <input type="number" name="customer_id" id="customer_id" required />
-            <label>Customer ID</label>
-         </div>
-         <div class="input-box">
-            <input type="text" name="customer_name" id="customer_name" required />
-            <label>Customer Name</label>
-         </div>
-         <div class="input-box">
-            <input type="text" name="product_name" id="product_name" required />
-            <label>Product name</label>
-         </div>
-         <div class="input-box">
-            <input type="number" min="1" step="any" name="product_price" id="product_price" required />
-            <label>Product Price</label>
-         </div>
-         <div class="message-box">
-            <textarea name="product_description" id="product_description"></textarea>
-            <label>Product Description</label>
-         </div>
-         <div class="input-box">
-            <input type="submit" value="Save Product" />
-         </div>
-      </form>
    </div>
+   
+   <div class="row">
+
+        <div class="search-box">
+            <label>Enter Customer ID</label>
+            <input type="number" name="customer_id" id="customer_id" placeholder="customer id" required />
+            <button onclick="getProducts()" class="btn">Get Product</button>
+              {% csrf_token %}
+         </div>
+
+   </div>
+    <div class="row">
+
+    <table id="product_list" class="table" border="1" cellspacing="0" width="100%">
+    <thead>
+     <tr>
+       <th>ID</th>
+       <th>Customer Name</th>
+       <th>Name</th>
+      <th>Price</th>
+      <th>Description</th>
+     </tr>
+   </thead>     
+ </table>
+ </div>
 </div>
+
+  

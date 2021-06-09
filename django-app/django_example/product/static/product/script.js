@@ -32,3 +32,33 @@ $(document).on("submit", "#new_product_form", function (e) {
     },
   });
 });
+
+
+function getProducts() {
+ $("#product_list").DataTable().clear().destroy();
+  customer_id = $("#customer_id").val();
+  csrfmiddlewaretoken =  $("input[name=csrfmiddlewaretoken]").val();
+  $("#product_list").dataTable({
+    processing: true,
+    serverSide: false,
+
+    ajax: {
+      url: "",
+      dataSrc: "",
+      type: "post",
+      data: {
+        customer_id: customer_id,
+        csrfmiddlewaretoken: csrfmiddlewaretoken,
+      },
+    },
+
+    columns: [
+      { data: "pk" },
+      { data: "fields.customer" },
+      { data: "fields.name" },
+      { data: "fields.price" },
+      { data: "fields.description" },
+    ],
+  });
+  
+}

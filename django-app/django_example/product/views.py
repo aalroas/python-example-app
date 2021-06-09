@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from .product import ProductForm
 from django.http import JsonResponse
+from django.http import HttpResponse
 from .models import Product
 from .models import Customer
+from django.core import serializers
+from django.db.models import F
+
 # Create your views here.
 
 def product_view(request):
@@ -50,17 +54,28 @@ def product_view(request):
 
 
 def product_list(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    print(products)
-    return render(request, 'product/list.html', context)
+    if request.is_ajax():
+        products = Product.objects.select_related('customer').all()
+
+        # new_products = {}
+        # for p in products:
+        #     new_products['customer_name'] = p.customer
+        #     new_products['id'] = p.pk
+        #     new_products['name'] = p.name
+        #     new_products['price'] = float(p.price)
+        #     new_products['description'] = p.description
+            
+        products_serialized = serializers.serialize('json', products)
+        # return JsonResponse(products_serialized, safe=False)
+        return HttpResponse(products_serialized, content_type="application/json")
+    return render(request, 'product/list.html')
 
 
 def product_find(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    print(products)
-    return render(request, 'product/list.html', context)
-
-
+    if request.is_ajax():  
+        customer_id = request.POST.get('customer_id')
+        products = Product.objects.filter(customer=customer_id)
+        products_serialized = serializers.serialize('json', products)
+        return HttpResponse(products_serialized, content_type="application/json")
+    return render(request, 'product/find.html')
 
