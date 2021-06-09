@@ -7,11 +7,11 @@
         dataSrc: "",
       },
       columns: [
-        { data: "pk" },
-        { data: "fields.customer" },
-        { data: "fields.name" },
-        { data: "fields.price" },
-        { data: "fields.description" },
+        { data: "id" },
+        { data: "customer_name" },
+        { data: "name" },
+        { data: "price" },
+        { data: "description" },
       ],
     });
    });

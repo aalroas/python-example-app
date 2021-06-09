@@ -56,26 +56,28 @@ def product_view(request):
 def product_list(request):
     if request.is_ajax():
         products = Product.objects.select_related('customer').all()
-
-        # new_products = {}
-        # for p in products:
-        #     new_products['customer_name'] = p.customer
-        #     new_products['id'] = p.pk
-        #     new_products['name'] = p.name
-        #     new_products['price'] = float(p.price)
-        #     new_products['description'] = p.description
-            
-        products_serialized = serializers.serialize('json', products)
-        # return JsonResponse(products_serialized, safe=False)
-        return HttpResponse(products_serialized, content_type="application/json")
+        new_products = []
+        for product in products:
+            new_products.append({ 'id': product.id, 'name': product.name,
+                                   'price': float(product.price), 'description': product.description,
+                                   'customer_name' : str(product.customer)
+                            })
+        # products_serialized = serializers.serialize('json', new_products)
+        # return HttpResponse(new_products, content_type="application/json")
+        return JsonResponse(new_products,safe=False)
     return render(request, 'product/list.html')
 
 
 def product_find(request):
     if request.is_ajax():  
         customer_id = request.POST.get('customer_id')
-        products = Product.objects.filter(customer=customer_id)
-        products_serialized = serializers.serialize('json', products)
-        return HttpResponse(products_serialized, content_type="application/json")
+        products = Product.objects.filter(customer=customer_id).select_related('customer')
+        new_products = []
+        for product in products:
+            new_products.append({ 'id': product.id, 'name': product.name,
+                                   'price': float(product.price), 'description': product.description,
+                                   'customer_name' : str(product.customer)
+                            })
+        return JsonResponse(new_products,safe=False)
     return render(request, 'product/find.html')
 
