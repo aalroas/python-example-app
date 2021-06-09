@@ -41,7 +41,6 @@ function getProducts() {
   $("#product_list").dataTable({
     processing: true,
     serverSide: false,
-
     ajax: {
       url: "",
       dataSrc: "",

@@ -26,4 +26,4 @@ def fetch_data(customer_id):
           
           
           
-fetch_data(1002)
+fetch_data(1004)
